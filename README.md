@@ -52,6 +52,7 @@
 
 ## 🧩 Estrutura do Projeto
 
+'''
 floralbot_ai/
 │
 ├── app/
@@ -77,6 +78,8 @@ floralbot_ai/
 ├── README.md
 ├── .env                      # Variáveis de ambiente (incluindo chave API)
 └── tailwind.config.js
+
+'''
 
 ---
 
