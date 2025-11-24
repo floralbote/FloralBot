@@ -1,1 +1,9 @@
-node_modules
+# Arquivos e pastas de dependências (cruciais para ignorar)
+venv/
+__pycache__/
+.env
+
+# Arquivos grandes de ferramentas e executáveis
+tools/tailwindcss.exe 
+*.exe
+node_modules/
