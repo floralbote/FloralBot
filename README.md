@@ -52,7 +52,7 @@
 
 ## 🧩 Estrutura do Projeto
 
-'''
+```
 floralbot_ai/
 │
 ├── app/
@@ -61,10 +61,10 @@ floralbot_ai/
 │   │   ├── css/              # Tailwind
 │   │   ├── js/               # Chatbot.js
 │   │   └── img/              # (opcional)
-│   ├── templates/            # HTML (Jinja2)
+│   ├── templates/            # HTML
 │   ├── models.py             # Modelos SQLAlchemy
-│   ├── routes.py             # Rotas principais (usuário, admin, florais)
-│   ├── chatbot.py            # Comunicação com a IA (Gemini API)
+│   ├── routes.py             # Rotas principais
+│   ├── chatbot.py            # Comunicação com a IA
 │   ├── utils.py              # (reservado para utilidades futuras)
 │   └── ml_pipeline.py        # (reservado para ML futuro)
 │
@@ -73,13 +73,12 @@ floralbot_ai/
 ├── seeds/                    # Scripts de carga futuras
 ├── tests/                    # Estrutura para testes futuros
 │
-├── run.py                    # Ponto de início da aplicação
+├── run.py                    # Início da aplicação
 ├── requirements.txt
 ├── README.md
-├── .env                      # Variáveis de ambiente (incluindo chave API)
+├── .env
 └── tailwind.config.js
-
-'''
+```
 
 ---
 
