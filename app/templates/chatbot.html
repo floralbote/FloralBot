@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="min-h-screen w-full bg-wellness bg-cover bg-fixed flex flex-col items-center justify-center p-6">
+
+  <!-- CHAT CONTAINER -->
+  <div class="bg-white/80 backdrop-blur-xl shadow-2xl w-full max-w-3xl rounded-2xl border border-white/40 overflow-hidden">
+    
+    <!-- HEADER -->
+    <div class="p-5 bg-white/70 border-b border-white/40 flex items-center justify-between">
+      <h2 class="text-green-700 text-xl font-bold flex items-center gap-2">
+        🌿 FloralBot AI
+      </h2>
+      <a href="{{ url_for('main.home') }}" 
+         class="text-xs text-green-700 hover:text-green-900 transition font-semibold">
+        Voltar
+      </a>
+    </div>
+
+    <!-- MESSAGES AREA -->
+    <div id="chat-box" class="p-6 h-[450px] overflow-y-auto space-y-4 scroll-smooth custom-scrollbar text-green-800">
+      <!-- Mensagem inicial -->
+      <div class="max-w-[80%] py-2 px-4 rounded-xl text-sm shadow bg-white/90 text-green-800 border border-gray-200">
+        Olá! Sou o FloralBot. Como você está se sentindo hoje?
+      </div>
+    </div>
+
+    <!-- INPUT AREA -->
+    <form id="chat-form" class="p-4 bg-white/70 border-t border-white/40 flex gap-3">
+      <input 
+        id="user-input"
+        type="text"
+        placeholder="Digite sua mensagem..."
+        class="flex-1 p-3 text-sm rounded-xl border border-green-300 focus:ring-2 focus:ring-green-400 text-green-800 outline-none"
+        autocomplete="off"
+        required
+      >
+      <button 
+        type="submit"
+        class="px-5 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+        Enviar
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- JS -->
+<script defer src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+
+<!-- Scrollbar style -->
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #00a876;
+    border-radius: 20px;
+  }
+</style>
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mx-auto max-w-5xl py-10">
+
+    <h2 class="text-3xl font-bold mb-6">Gerenciar Usuários</h2>
+
+    <!-- QUADRO ESCURO (FORM + TABELA) -->
+    <div class="bg-gray-900 p-6 rounded-lg shadow mb-10">
+
+        <a href="{{ url_for('main.add_user') }}" 
+           class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white mb-6 inline-block">
+            Adicionar Usuário
+        </a>
+
+        <div class="table-responsive mt-4">
+            <table class="w-full bg-gray-900 rounded-lg overflow-hidden">
+                <thead class="bg-gray-800">
+                    <tr>
+                        <th class="p-3 text-left">ID</th>
+                        <th class="p-3 text-left">Nome</th>
+                        <th class="p-3 text-left">Email</th>
+                        <th class="p-3 text-left">Função</th>
+                        <th class="p-3 text-center">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for user in users %}
+                    <tr class="border-b border-gray-700">
+                        <td class="p-3">{{ user.id }}</td>
+                        <td class="p-3">{{ user.name }}</td>
+                        <td class="p-3">{{ user.email }}</td>
+                        <td class="p-3">
+                            {% if user.is_admin %}Administrador{% else %}Usuário{% endif %}
+                        </td>
+                        <td class="p-3 text-center">
+                            <a href="{{ url_for('main.edit_user', user_id=user.id) }}"
+                               class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded text-black">
+                                Editar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+

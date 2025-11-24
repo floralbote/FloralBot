@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Entrar — FloralBot{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md mt-10 mb-10">
+
+  <h2 class="text-2xl font-bold mb-4 text-secondary">Entrar</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="space-y-2 mb-4">
+        {% for category, msg in messages %}
+          <div class="text-sm px-3 py-2 rounded 
+                      {{ 'bg-green-100 text-green-700' if category=='success' else 'bg-red-100 text-red-700' }}">
+            {{ msg }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="post">
+
+    <!-- EMAIL -->
+    <label class="block text-sm font-medium mb-1 text-primary">Email</label>
+    <input 
+      name="email" 
+      type="email" 
+      class="w-full p-2 rounded-lg border border-slate-300 mb-3 outline-none 
+             text-slate-800
+             placeholder-slate-500
+             focus:ring-2 focus:ring-primary" 
+      placeholder="Digite seu email"
+      required>
+
+    <!-- SENHA -->
+    <label class="block text-sm font-medium mb-1 text-primary">Senha</label>
+    <input 
+      name="password" 
+      type="password" 
+      class="w-full p-2 rounded-lg border border-slate-300 mb-4 outline-none
+             text-slate-800
+             placeholder-slate-500
+             focus:ring-2 focus:ring-primary" 
+      placeholder="Digite sua senha"
+      required>
+
+    <button class="w-full py-2 rounded-lg bg-primary text-white font-semibold hover:bg-[#00a876] transition">
+      Entrar
+    </button>
+
+  </form>
+
+  <p class="text-xs text-slate-500 mt-4 text-center">
+    Não tem conta? 
+    <a href="{{ url_for('auth.register') }}" class="text-primary font-semibold hover:underline">
+      Criar conta
+    </a>
+  </p>
+
+</div>
+{% endblock %}
+
+

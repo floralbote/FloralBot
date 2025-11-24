@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-xl mx-auto p-6 bg-white shadow rounded-xl mt-10">
+
+    <h2 class="text-2xl font-semibold mb-6 text-black">Editar Usuário</h2>
+
+    <!-- FORMULÁRIO DE EDIÇÃO -->
+    <form method="POST" action="{{ url_for('main.edit_user', user_id=user.id) }}" class="space-y-4">
+
+        <div>
+            <label class="block mb-1 text-black">Nome:</label>
+            <input type="text" name="name"
+                   value="{{ user.name }}"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   required>
+        </div>
+
+        <div>
+            <label class="block mb-1 text-black">Email:</label>
+            <input type="email" name="email"
+                   value="{{ user.email }}"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   required>
+        </div>
+
+        <!-- Seleção de gênero -->
+        <div>
+            <label class="block mb-1 text-black">Gênero:</label>
+
+            {% set predefined = ["Feminino", "Masculino", "Prefiro não dizer"] %}
+            {% set is_other = user.gender not in predefined and user.gender %}
+
+            <select name="gender" id="genderSelect"
+                    class="w-full p-2 border rounded text-black"
+                    onchange="toggleOtherGender()">
+                <option value="">Selecione...</option>
+                <option value="Feminino" {% if user.gender == "Feminino" %}selected{% endif %}>Feminino</option>
+                <option value="Masculino" {% if user.gender == "Masculino" %}selected{% endif %}>Masculino</option>
+                <option value="Outro" {% if is_other %}selected{% endif %}>Outro</option>
+                <option value="Prefiro não dizer" {% if user.gender == "Prefiro não dizer" %}selected{% endif %}>Prefiro não dizer</option>
+            </select>
+        </div>
+
+        <!-- Campo "Outro" -->
+        <div id="otherGenderDiv" class="{% if is_other %}block{% else %}hidden{% endif %}">
+            <label class="block mb-1 text-black">Digite seu gênero:</label>
+            <input type="text" name="gender_other"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   placeholder="Especifique"
+                   value="{% if is_other %}{{ user.gender }}{% endif %}">
+        </div>
+
+        <div>
+            <label class="block mb-1 text-black">Data de Nascimento:</label>
+            <input type="date" name="birthdate"
+                   value="{{ user.birthdate }}"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600">
+        </div>
+
+        <div class="flex items-center gap-2">
+            <input type="checkbox" name="is_admin" class="text-black"
+                   {% if user.is_admin %}checked{% endif %}>
+            <label class="text-black">Administrador?</label>
+        </div>
+
+        <div>
+            <label class="block mb-1 text-black">Nova senha (opcional):</label>
+            <input type="password" name="password"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   placeholder="Digite uma nova senha">
+        </div>
+
+        <button class="w-full bg-primary text-white p-2 rounded">Salvar Alterações</button>
+
+    </form>
+
+    <!-- FORMULÁRIO DE EXCLUSÃO (POST) -->
+    <form method="POST"
+          action="{{ url_for('main.delete_user', user_id=user.id) }}"
+          class="mt-6">
+
+        <button type="submit"
+                onclick="return confirm('Tem certeza que deseja excluir este usuário?');"
+                class="w-full bg-red-600 text-white p-2 rounded hover:bg-red-700">
+            Excluir Usuário
+        </button>
+    </form>
+
+</div>
+
+<script>
+function toggleOtherGender() {
+    const select = document.getElementById("genderSelect");
+    const div = document.getElementById("otherGenderDiv");
+
+    if (select.value === "Outro") {
+        div.classList.remove("hidden");
+    } else {
+        div.classList.add("hidden");
+    }
+}
+</script>
+
+{% endblock %}
+
+
+

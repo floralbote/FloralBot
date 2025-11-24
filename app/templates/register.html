@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}Criar Conta — FloralBot{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-md mt-10 mb-10">
+
+  <h2 class="text-2xl font-bold mb-4 text-secondary">Criar Conta</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="space-y-2 mb-4">
+        {% for category, msg in messages %}
+          <div class="text-sm px-3 py-2 rounded 
+                      {{ 'bg-green-100 text-green-700' if category=='success' else 'bg-red-100 text-red-700' }}">
+            {{ msg }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="post">
+
+    <!-- NOME -->
+    <label class="block text-sm font-medium mb-1 text-slate-700">Nome</label>
+    <input 
+      name="name" 
+      type="text"
+      placeholder="Digite seu nome"
+      class="w-full p-2 rounded-lg border border-slate-300 placeholder-slate-400 text-slate-800 mb-3 focus:ring-2 focus:ring-primary outline-none" 
+      required>
+
+    <!-- DATA DE NASCIMENTO -->
+    <label class="block text-sm font-medium mb-1 text-slate-700">Data de Nascimento</label>
+    <input 
+      name="birthdate" 
+      type="date"
+      class="w-full p-2 rounded-lg border border-slate-300 placeholder-slate-400 text-slate-800 mb-1 focus:ring-2 focus:ring-primary outline-none"
+      required
+    >
+    <p id="idade" class="text-xs text-slate-600 mb-3"></p>
+
+    <!-- GÊNERO -->
+    <label class="block text-sm font-medium mb-1 text-slate-700">Gênero</label>
+    <select 
+      name="gender" 
+      id="gender"
+      class="w-full p-2 rounded-lg border border-slate-300 placeholder-slate-400 text-slate-800 mb-3 focus:ring-2 focus:ring-primary outline-none" 
+      required>
+      <option value="">Selecione...</option>
+      <option value="Feminino">Feminino</option>
+      <option value="Masculino">Masculino</option>
+      <option value="Outro">Outro</option>
+      <option value="Prefiro não dizer">Prefiro não dizer</option>
+    </select>
+
+    <!-- OUTRO GÊNERO -->
+    <input 
+      name="gender_other"
+      id="gender_other"
+      type="text"
+      placeholder="Digite seu gênero"
+      class="w-full p-2 rounded-lg border border-slate-300 placeholder-slate-400 text-slate-800 mb-3 hidden focus:ring-2 focus:ring-primary outline-none"
+    />
+
+    <!-- EMAIL -->
+    <label class="block text-sm font-medium mb-1 text-slate-700">Email</label>
+    <input 
+      name="email" 
+      type="email"
+      placeholder="Digite seu email"
+      class="w-full p-2 rounded-lg border border-slate-300 placeholder-slate-400 text-slate-800 mb-3 focus:ring-2 focus:ring-primary outline-none" 
+      required>
+
+    <!-- SENHA -->
+    <label class="block text-sm font-medium mb-1 text-slate-700">Senha</label>
+    <input 
+      name="password" 
+      type="password"
+      placeholder="Digite sua senha"
+      class="w-full p-2 rounded-lg border border-slate-300 placeholder-slate-400 text-slate-800 mb-3 focus:ring-2 focus:ring-primary outline-none" 
+      required>
+
+    <!-- CONFIRMAR SENHA -->
+    <label class="block text-sm font-medium mb-1 text-slate-700">Confirmar senha</label>
+    <input 
+      name="password2" 
+      type="password"
+      placeholder="Repita sua senha"
+      class="w-full p-2 rounded-lg border border-slate-300 placeholder-slate-400 text-slate-800 mb-4 focus:ring-2 focus:ring-primary outline-none" 
+      required>
+
+    <button class="w-full py-2 rounded-lg bg-primary text-white font-semibold hover:bg-[#00a876] transition">
+      Criar Conta
+    </button>
+
+  </form>
+
+  <p class="text-xs text-slate-500 mt-4 text-center">
+    Já tem conta? 
+    <a href="{{ url_for('auth.login') }}" class="text-primary font-semibold hover:underline">
+      Entrar
+    </a>
+  </p>
+</div>
+
+<!-- SCRIPT PARA CALCULAR IDADE E LIDAR COM "OUTRO" -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* IDADE */
+  const input = document.querySelector('input[name="birthdate"]');
+  const idadeText = document.getElementById("idade");
+
+  input.addEventListener("change", () => {
+    if (!input.value) {
+      idadeText.textContent = "";
+      return;
+    }
+
+    const birth = new Date(input.value + "T00:00:00-03:00");
+    const hoje = new Date();
+
+    let idade = hoje.getFullYear() - birth.getFullYear();
+    const m = hoje.getMonth() - birth.getMonth();
+
+    if (m < 0 || (m === 0 && hoje.getDate() < birth.getDate())) {
+      idade--;
+    }
+
+    idadeText.textContent = "Idade: " + idade + " anos";
+  });
+
+  /* EXIBIR CAMPO "OUTRO" */
+  const genderSelect = document.getElementById("gender");
+  const genderOther = document.getElementById("gender_other");
+
+  genderSelect.addEventListener("change", () => {
+    if (genderSelect.value === "Outro") {
+      genderOther.classList.remove("hidden");
+      genderOther.required = true;
+    } else {
+      genderOther.classList.add("hidden");
+      genderOther.required = false;
+      genderOther.value = "";
+    }
+  });
+});
+</script>
+{% endblock %}
+
+
+
+

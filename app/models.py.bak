@@ -1,0 +1,81 @@
+from app import db
+from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# -------------------------------------------------
+# TABELA DE USUÁRIOS
+# -------------------------------------------------
+
+
+class User(db.Model):
+    __tablename__ = "user"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)
+    password_hash = db.Column(db.String(256), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    birthdate = db.Column(db.Date)
+    gender = db.Column(db.String(50))
+
+    clients = db.relationship('Client', backref='user', lazy=True)
+    chats = db.relationship('ChatHistory', backref='user', lazy=True)
+
+    # --------- MÉTODOS DE SENHA --------------
+    def set_password(self, password):
+        """Criptografa e armazena a senha"""
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        """Valida senha digitada"""
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return f"<User {self.email}>"
+
+
+# -------------------------------------------------
+# TABELA DE CLIENTES
+# -------------------------------------------------
+class Client(db.Model):
+    __tablename__ = "clients"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    name = db.Column(db.String(120), nullable=False)
+    age = db.Column(db.Integer)
+    symptoms = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    chats = db.relationship('ChatHistory', backref='client', lazy=True)
+
+
+# -------------------------------------------------
+# TABELA DE FLORAIS
+# -------------------------------------------------
+class Floral(db.Model):
+    __tablename__ = "florais"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    description = db.Column(db.Text)
+    indications = db.Column(db.Text)
+
+
+# -------------------------------------------------
+# TABELA DE HISTÓRICO DO CHAT
+# -------------------------------------------------
+class ChatHistory(db.Model):
+    __tablename__ = "chat_history"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    client_id = db.Column(db.Integer, db.ForeignKey(
+        'clients.id'), nullable=True)
+
+    user_message = db.Column(db.Text, nullable=False)
+    bot_message = db.Column(db.Text, nullable=False)
+
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)

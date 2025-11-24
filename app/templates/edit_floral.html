@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Editar Floral — FloralBot{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto py-12">
+  <div class="bg-white rounded-2xl p-8 shadow">
+    <h2 class="text-2xl font-bold text-secondary mb-4">Editar Floral</h2>
+
+    <form action="{{ url_for('main.florais_edit', floral_id=floral.id) }}" method="post" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1 text-black">Nome</label>
+        <input name="name" type="text" required
+               class="w-full p-2 rounded-lg border border-slate-300 text-black placeholder-gray-600 focus:ring-2 focus:ring-primary outline-none"
+               value="{{ floral.name }}" placeholder="Nome do floral">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1 text-black">Descrição</label>
+        <textarea name="description" rows="4"
+                  class="w-full p-2 rounded-lg border border-slate-300 text-black placeholder-gray-600 focus:ring-2 focus:ring-primary outline-none"
+                  placeholder="Descrição (opcional)">{{ floral.description }}</textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1 text-black">Indicações</label>
+        <textarea name="indications" rows="3"
+                  class="w-full p-2 rounded-lg border border-slate-300 text-black placeholder-gray-600 focus:ring-2 focus:ring-primary outline-none"
+                  placeholder="Indicações (opcional)">{{ floral.indications }}</textarea>
+      </div>
+
+      <div class="flex gap-3">
+        <button type="submit" class="w-full py-2 rounded-lg bg-primary text-white font-semibold hover:bg-[#00a876]">
+          Salvar alterações
+        </button>
+
+        <a href="{{ url_for('main.florais_admin') }}" class="w-full text-center py-2 rounded-lg border border-slate-300">
+          Voltar
+        </a>
+      </div>
+    </form>
+
+    <form action="{{ url_for('main.florais_delete', floral_id=floral.id) }}" method="post" class="mt-4">
+      <button type="submit"
+              onclick="return confirm('Tem certeza que deseja excluir este floral?');"
+              class="w-full py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">
+        Excluir floral
+      </button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- BACKGROUND WELLNESS -->
+<div class="relative min-h-screen w-full flex items-center justify-center px-8 py-10
+            bg-linear-to-br from-[#064C3B] via-[#08745A] to-[#00C389] overflow-hidden">
+
+  <!-- NEVOA / MIST (CALM STYLE) -->
+  <div class="pointer-events-none absolute inset-0 opacity-50">
+    <div class="absolute -top-20 left-1/2 w-[120%] h-[60%] bg-white/20 blur-[90px] rounded-full animate-softbreath"></div>
+    <div class="absolute bottom-0 -left-10 w-[80%] h-[60%] bg-white/10 blur-[95px] rounded-full animate-softbreath"></div>
+  </div>
+
+  <!-- PARTICULAS MAGICAS -->
+  <div class="pointer-events-none absolute inset-0">
+    <span class="absolute w-2 h-2 rounded-full bg-white/30 blur-md animate-softbreath left-[15%] top-[25%]"></span>
+    <span class="absolute w-3 h-3 rounded-full bg-white/30 blur-lg animate-softbreath right-[18%] top-[35%]"></span>
+    <span class="absolute w-2 h-2 rounded-full bg-white/20 blur-md animate-softbreath left-[30%] bottom-[18%]"></span>
+    <span class="absolute w-4 h-4 rounded-full bg-white/10 blur-lg animate-softbreath right-[10%] bottom-[22%]"></span>
+  </div>
+
+  <!-- CONTAINER PRINCIPAL -->
+  <div class="relative max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center text-white">
+
+    <!-- LEFT CONTENT -->
+    <div>
+      <h1 class="font-serif text-5xl font-bold leading-tight mb-6 drop-shadow-xl animate-softbreath">
+        Desperte seu<br>Equilíbrio Emocional.
+      </h1>
+
+      <p class="text-base leading-relaxed mb-8 opacity-95">
+        O FloralBot AI é seu assistente virtual para o bem-estar. Através de uma conversa amigável, 
+        ele ajuda você a identificar suas emoções e sugere as essências florais de Bach mais indicadas 
+        para harmonizar seu estado de espírito.
+      </p>
+
+      <div class="border-l-4 border-[#00C389]/70 pl-4 mb-6">
+        <h3 class="font-semibold text-lg">Um Sistema de Cura Natural</h3>
+        <p class="text-sm mt-1 leading-relaxed opacity-90">
+          A Terapia Floral de Bach é um sistema de cura natural, desenvolvido pelo Dr. Edward Bach. 
+          Baseia-se no uso de 38 essências extraídas de flores silvestres para equilibrar as emoções.
+        </p>
+      </div>
+
+      <div class="border-l-4 border-[#00C389] pl-4 opacity-95">
+        <h3 class="font-semibold text-lg">Equilíbrio para Suas Emoções</h3>
+        <p class="text-sm mt-1 leading-relaxed opacity-90">
+          Dr. Bach acreditava que as emoções em desordem podiam causar doenças. As essências florais 
+          ajudam a harmonizar nosso interior, transformando sentimentos ruins em bons.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT CARD (GLASS + FLOAT) -->
+    <div class="backdrop-blur-2xl bg-white/20 shadow-[0_0_35px_rgba(255,255,255,0.3)] 
+                rounded-2xl p-10 w-full max-w-md text-center border border-white/20 
+                transition-transform hover:scale-[1.02] animate-softbreath">
+
+      <!-- Logo & Title -->
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <div class="w-12 h-12 rounded-full border border-white/50 bg-white/10 
+                    flex items-center justify-center animate-softbreath">
+          <span class="text-white font-bold text-lg">🌿</span>
+        </div>
+        <h2 class="text-white font-extrabold text-2xl drop-shadow-lg">
+          FloralBot AI
+        </h2>
+      </div>
+
+      <p class="text-white/85 text-sm mb-8">
+        Sua jornada de bem-estar começa aqui.
+      </p>
+
+      <!-- Buttons -->
+      <a href="{{ url_for('auth.login') }}" 
+         class="block w-full py-3 rounded-full bg-white/90 text-[#064C3B] font-semibold 
+                hover:bg-white transition animate-floatbutton shadow-lg">
+        Login
+      </a>
+
+      <a href="{{ url_for('auth.register') }}" 
+         class="block w-full py-3 rounded-full border border-white/60 text-white font-semibold 
+                hover:bg-white/10 transition mb-6 animate-floatbutton">
+        Criar Conta
+      </a>
+
+      <a href="{{ url_for('main.chat') }}" 
+         class="block text-xs text-white/80 hover:text-white transition animate-floatbutton">
+        Permanecer desconectado
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+

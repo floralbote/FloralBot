@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}FloralBot{% endblock %} — FloralBot AI</title>
+
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config Customizada -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#00C389',         // Wellness Green
+            secondary: '#064C3B',       // Deep Botanical
+            softcream: '#F5FFF9',       // Spa background
+          },
+          backgroundImage: {
+            "wellness": "linear-gradient(to bottom right, #064C3B, #00C389)"
+          },
+          keyframes: {
+            softbreath: {
+              '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+            },
+            floatbutton: {
+              '0%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-3px)' },
+              '100%': { transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            softbreath: 'softbreath 3.5s ease-in-out infinite',
+            floatbutton: 'floatbutton 2.5s ease-in-out infinite',
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" />
+  {% block head %}{% endblock %}
+</head>
+
+<!-- CORREÇÃO: aplica o gradiente verde como fundo e texto claro -->
+<body class="min-h-screen bg-wellness text-white font-sans">
+
+  <!-- NAVBAR -->
+  <header class="bg-white/20 backdrop-blur sticky top-0 z-40 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- LOGO -->
+        <a href="{{ url_for('main.home') }}" class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full bg-wellness flex items-center justify-center text-white font-bold animate-softbreath">
+            🌿
+          </div>
+          <div class="hidden sm:block">
+            <div class="text-lg font-semibold text-secondary">FloralBot</div>
+            <div class="text-xs text-white/75 -mt-0.5">Equilíbrio emocional & bem-estar</div>
+          </div>
+        </a>
+
+        <!-- DESKTOP NAV -->
+        <nav class="hidden md:flex items-center gap-4 text-sm font-medium">
+          <a href="{{ url_for('main.home') }}" class="px-3 py-2 rounded hover:bg-white/10">Home</a>
+          <a href="{{ url_for('main.chat') }}" class="px-3 py-2 rounded hover:bg-white/10">Chat</a>
+          <a href="{{ url_for('main.florais_public') }}" class="px-3 py-2 rounded hover:bg-white/10">Florais</a>
+          {% if current_user.is_authenticated and current_user.is_admin %}
+            <a href="{{ url_for('main.dashboard') }}" class="px-3 py-2 rounded hover:bg-white/10 text-secondary font-semibold">Dashboard</a>
+          {% endif %}
+        </nav>
+
+        <div class="flex items-center gap-3">
+          {% if current_user.is_authenticated %}
+            <span class="text-sm text-white/90 hidden sm:block">
+              Olá, {{ current_user.name.split(' ')[0] }} 👋
+            </span>
+
+            <a href="{{ url_for('auth.logout') }}" class="px-4 py-2 rounded-lg bg-white/90 text-[#064C3B] text-sm hover:opacity-90 animate-floatbutton">
+              Sair
+            </a>
+          {% else %}
+            <a href="{{ url_for('auth.login') }}" class="hidden sm:inline-block px-4 py-2 rounded-lg border border-white text-white text-sm hover:bg-white/10 animate-floatbutton">
+              Entrar
+            </a>
+          {% endif %}
+
+          <button id="mobileBtn" class="md:hidden p-2 rounded hover:bg-white/10">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO -->
+  <main class="min-h-[80vh]">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-12 border-t bg-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-sm text-white/80 flex items-center justify-between">
+      <div>© {{ now().year }} FloralBot · Feito com 🌿</div>
+      <div class="hidden sm:block">Versão: Dev</div>
+    </div>
+  </footer>
+
+  {% block scripts %}
+  <script>
+    const mobileBtn = document.getElementById('mobileBtn');
+    mobileBtn?.addEventListener('click', () => {
+      alert('Menu mobile ainda será implementado.');
+    });
+  </script>
+  {% endblock %}
+
+<!-- Bootstrap 5 JS (necessário para modais funcionarem) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+

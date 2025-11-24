@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-7xl mx-auto px-6 py-10 text-slate-800">
+
+    <h1 class="text-3xl font-bold mb-8">📊 Dashboard Administrativo</h1>
+
+    <!-- ==================== ESTATÍSTICAS ==================== -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+
+        <div class="p-6 rounded-xl shadow bg-white">
+            <p class="text-gray-600">Usuários cadastrados</p>
+            <p class="text-3xl font-bold">{{ total_users }}</p>
+        </div>
+
+        <div class="p-6 rounded-xl shadow bg-white">
+            <p class="text-gray-600">Mensagens no chat</p>
+            <p class="text-3xl font-bold">{{ total_chats }}</p>
+        </div>
+
+        <div class="p-6 rounded-xl shadow bg-white">
+            <p class="text-gray-600">Florais cadastrados</p>
+            <p class="text-3xl font-bold">{{ total_florais }}</p>
+        </div>
+
+    </div>
+
+    <!-- ==================== LISTA DE USUÁRIOS ==================== -->
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-semibold">👥 Usuários</h2>
+
+        <a href="{{ url_for('main.add_user') }}"
+           class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-[#00a876] transition">
+            + Adicionar Usuário
+        </a>
+    </div>
+
+    <div class="overflow-x-auto mb-12">
+        <table class="w-full bg-white rounded-xl shadow">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="p-3 text-left">Nome</th>
+                    <th class="p-3 text-left">Email</th>
+                    <th class="p-3 text-left">Gênero</th>
+                    <th class="p-3 text-left">Data Nasc.</th>
+                    <th class="p-3 text-left">Admin?</th>
+                    <th class="p-3 text-left">Criado em</th>
+                    <th class="p-3 text-left">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr class="border-t">
+                    <td class="p-3">{{ u.name }}</td>
+                    <td class="p-3">{{ u.email }}</td>
+                    <td class="p-3">{{ u.gender if u.gender else "-" }}</td>
+
+                    <td class="p-3">
+                        {% if u.birthdate %}
+                            {{ u.birthdate.strftime("%d/%m/%Y") }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td class="p-3">
+                        {% if u.is_admin %}
+                            <span class="text-green-600 font-bold">Sim</span>
+                        {% else %}
+                            <span class="text-gray-500">Não</span>
+                        {% endif %}
+                    </td>
+
+                    <td class="p-3">
+                        {{ u.created_at.strftime("%d/%m/%Y %H:%M") }}
+                    </td>
+
+                    <td class="p-3 flex gap-3">
+                        <a href="{{ url_for('main.edit_user', user_id=u.id) }}"
+                           class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-[#00a876] transition">
+                            Editar ou Excluir
+                        </a>
+
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ==================== HISTÓRICO DE CHAT ==================== -->
+    <h2 class="text-2xl font-semibold mb-4">💬 Últimos Chats</h2>
+
+    <div class="overflow-x-auto mb-12">
+        <table class="w-full bg-white rounded-xl shadow">
+            <thead class="bg-slate-100">
+                <tr>
+                    <th class="p-3 text-left">Usuário</th>
+                    <th class="p-3 text-left">Mensagem</th>
+                    <th class="p-3 text-left">Resposta</th>
+                    <th class="p-3 text-left">Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in chats %}
+                <tr class="border-t">
+                    <td class="p-3">
+                        {% if c.user %}
+                            {{ c.user.name }}
+                        {% else %}
+                            <span class="text-gray-500">Anônimo</span>
+                        {% endif %}
+                    </td>
+                    <td class="p-3">{{ c.user_message }}</td>
+                    <td class="p-3 text-slate-700">{{ c.bot_message }}</td>
+                    <td class="p-3">
+                        {{ c.created_at.strftime("%d/%m/%Y %H:%M") }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+<!-- ==================== FLORAIS ==================== -->
+<div class="flex items-center justify-between mb-4 mt-10">
+    <h2 class="text-2xl font-semibold">🌿 Florais</h2>
+
+    <a href="{{ url_for('main.florais_add') }}"
+       class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-[#00a876] transition">
+        + Adicionar Floral
+    </a>
+</div>
+
+<div class="overflow-x-auto">
+    <table class="w-full bg-white rounded-xl shadow">
+        <thead class="bg-slate-100">
+            <tr>
+                <th class="p-3 text-left">Nome</th>
+                <th class="p-3 text-left">Indicações</th>
+                <th class="p-3 text-left">Descrição</th>
+                <th class="p-3 text-left">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in florais %}
+            <tr class="border-t">
+                <td class="p-3">{{ f.name }}</td>
+                <td class="p-3">{{ f.indications }}</td>
+                <td class="p-3">{{ f.description }}</td>
+
+                <td class="p-3 flex gap-3">
+
+                    <!-- EDITAR -->
+                    <a href="{{ url_for('main.edit_floral_form', floral_id=f.id) }}"
+                       class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-[#00a876] transition">
+                        Editar ou Excluir
+                    </a>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+

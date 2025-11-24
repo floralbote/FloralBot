@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-xl mx-auto p-6 bg-white shadow rounded-xl mt-10">
+
+    <h2 class="text-2xl font-semibold mb-6 text-black">Adicionar Usuário</h2>
+
+    <form action="{{ url_for('main.add_user') }}" method="POST" class="space-y-4">
+
+        <div>
+            <label class="block mb-1 text-black">Nome:</label>
+            <input type="text" name="name"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   placeholder="Nome do usuário"
+                   required>
+        </div>
+
+        <div>
+            <label class="block mb-1 text-black">Email:</label>
+            <input type="email" name="email"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   placeholder="email@exemplo.com"
+                   required>
+        </div>
+
+        <div>
+            <label class="block mb-1 text-black">Senha:</label>
+            <input type="password" name="password"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   placeholder="Digite a senha"
+                   required>
+        </div>
+
+        <!-- GÊNERO COM OPÇÕES -->
+        <div>
+            <label class="block mb-1 text-black">Gênero:</label>
+            <select name="gender" id="genderSelect"
+                    class="w-full p-2 border rounded text-black"
+                    onchange="toggleOtherGender()">
+                <option value="">Selecione...</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Outro">Outro</option>
+                <option value="Prefiro não dizer">Prefiro não dizer</option>
+            </select>
+        </div>
+
+        <!-- Campo para "Outro" -->
+        <div id="otherGenderDiv" class="hidden">
+            <label class="block mb-1 text-black">Digite seu gênero:</label>
+            <input type="text" name="gender_other"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600"
+                   placeholder="Especifique">
+        </div>
+
+        <div>
+            <label class="block mb-1 text-black">Data de Nascimento:</label>
+            <input type="date" name="birthdate"
+                   class="w-full p-2 border rounded text-black placeholder-gray-600">
+        </div>
+
+        <div class="flex items-center gap-2">
+            <input type="checkbox" name="is_admin" class="text-black">
+            <label class="text-black">Administrador?</label>
+        </div>
+
+        <button class="w-full bg-primary text-white p-2 rounded">Salvar</button>
+
+    </form>
+
+</div>
+
+<!-- SCRIPT ESSENCIAL -->
+<script>
+function toggleOtherGender() {
+    const select = document.getElementById("genderSelect");
+    const div = document.getElementById("otherGenderDiv");
+
+    if (select.value === "Outro") {
+        div.classList.remove("hidden");
+    } else {
+        div.classList.add("hidden");
+    }
+}
+</script>
+
+{% endblock %}
+
+
+

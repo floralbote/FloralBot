@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+{% block title %}Gerenciar Florais{% endblock %}
+
+{% block content %}
+<div class="container mx-auto max-w-5xl py-10">
+
+    <h2 class="text-3xl font-bold mb-6">Gerenciar Florais</h2>
+
+    <!-- FORMULÁRIO DE CADASTRO -->
+    <div class="bg-gray-900 p-6 rounded-lg shadow mb-10">
+        <h3 class="text-xl font-semibold mb-4">Adicionar Floral</h3>
+
+        <form id="addFloralForm" class="grid grid-cols-1 gap-4">
+
+            <div>
+                <label class="block mb-1">Nome do Floral</label>
+                <input type="text" name="name" class="w-full p-2 rounded bg-gray-800 border border-gray-700" required>
+            </div>
+
+            <div>
+                <label class="block mb-1">Descrição</label>
+                <textarea name="description" class="w-full p-2 rounded bg-gray-800 border border-gray-700"></textarea>
+            </div>
+
+            <div>
+                <label class="block mb-1">Indicações</label>
+                <textarea name="indications" class="w-full p-2 rounded bg-gray-800 border border-gray-700"></textarea>
+            </div>
+
+            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white w-full">
+                Adicionar Floral
+            </button>
+
+        </form>
+    </div>
+
+    <!-- LISTA DE FLORAIS -->
+    <h3 class="text-2xl font-semibold mb-4">Lista de Florais</h3>
+
+    <table class="w-full bg-gray-900 rounded-lg overflow-hidden">
+        <thead class="bg-gray-800">
+            <tr>
+                <th class="p-3 text-left">Nome</th>
+                <th class="p-3 text-left">Descrição</th>
+                <th class="p-3 text-left">Indicações</th>
+                <th class="p-3">Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for f in florais %}
+            <tr class="border-b border-gray-700">
+                <td class="p-3 font-semibold">{{ f.name }}</td>
+                <td class="p-3 text-sm">{{ f.description }}</td>
+                <td class="p-3 text-sm">{{ f.indications }}</td>
+                <td class="p-3 flex gap-2">
+
+                    <!-- EDITAR -->
+                    <button 
+                        class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded text-black"
+                        data-id="{{ f.id }}"
+                        data-name="{{ f.name }}"
+                        data-description="{{ f.description }}"
+                        data-indications="{{ f.indications }}"
+                        onclick="openEditFromButton(this)"
+                    >
+                        Editar
+                    </button>
+
+                    <!-- EXCLUIR -->
+                    <button onclick="deleteFloral('{{ f.id }}')"
+                        class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded">
+                        Excluir
+                    </button>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+<!-- MODAL DE EDIÇÃO -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center">
+    <div class="bg-gray-900 p-6 rounded-lg shadow max-w-lg w-full">
+
+        <h3 class="text-xl font-bold mb-4">Editar Floral</h3>
+
+        <form id="editFloralForm" class="grid grid-cols-1 gap-4">
+
+            <input type="hidden" name="id" id="editId">
+
+            <div>
+                <label class="block mb-1">Nome</label>
+                <input type="text" id="editName" name="name" class="w-full p-2 rounded bg-gray-800 border border-gray-700">
+            </div>
+
+            <div>
+                <label class="block mb-1">Descrição</label>
+                <textarea id="editDescription" name="description" class="w-full p-2 rounded bg-gray-800 border border-gray-700"></textarea>
+            </div>
+
+            <div>
+                <label class="block mb-1">Indicações</label>
+                <textarea id="editIndications" name="indications" class="w-full p-2 rounded bg-gray-800 border border-gray-700"></textarea>
+            </div>
+
+            <div class="flex gap-3">
+                <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white w-full">
+                    Salvar Alterações
+                </button>
+
+                <button type="button" onclick="closeEditModal()" 
+                    class="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded text-white w-full">
+                    Cancelar
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+
+// Abrir modal a partir do botão
+function openEditFromButton(btn) {
+    openEditModal(
+        btn.dataset.id,
+        btn.dataset.name,
+        btn.dataset.description,
+        btn.dataset.indications
+    );
+}
+
+// Abrir modal
+function openEditModal(id, name, description, indications) {
+    document.getElementById("editId").value = id;
+    document.getElementById("editName").value = name;
+    document.getElementById("editDescription").value = description;
+    document.getElementById("editIndications").value = indications;
+
+    document.getElementById("editModal").classList.remove("hidden");
+    document.getElementById("editModal").classList.add("flex");
+}
+
+// Fechar modal
+function closeEditModal() {
+    document.getElementById("editModal").classList.add("hidden");
+    document.getElementById("editModal").classList.remove("flex");
+}
+
+// Adicionar floral
+document.getElementById("addFloralForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const res = await fetch("/florais-admin/add", {
+        method: "POST",
+        body: formData
+    });
+
+    const json = await res.json();
+    if (json.success) {
+        alert("Floral adicionado!");
+        location.reload();
+    } else {
+        alert("Erro: " + json.error);
+    }
+});
+
+// Editar floral
+document.getElementById("editFloralForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const id = document.getElementById("editId").value;
+    const formData = new FormData(this);
+
+    const res = await fetch(`/florais-admin/edit/${id}`, {
+        method: "POST",
+        body: formData
+    });
+
+    const json = await res.json();
+    if (json.success) {
+        alert("Floral atualizado!");
+        location.reload();
+    } else {
+        alert("Erro ao salvar.");
+    }
+});
+
+// Excluir floral
+async function deleteFloral(id) {
+    if (!confirm("Excluir floral?")) return;
+
+    const res = await fetch(`/florais-admin/delete/${id}`, {
+        method: "DELETE"
+    });
+
+    const json = await res.json();
+    if (json.success) {
+        alert("Floral removido!");
+        location.reload();
+    } else {
+        alert("Erro ao excluir.");
+    }
+}
+
+</script>
+
+{% endblock %}
+
+
+
