@@ -53,30 +53,53 @@
 ## 🧩 Estrutura do Projeto
 
 ```
+
 floralbot_ai/
 │
+├── Documentação/
+│   └── ML_DL-Métricas/
+│       ├── FLORALBOT_de_Template_Projeto_ML_DL.ipynb
+│       ├── Relatorio Final ML_DL - FloralBot.pdf
+│       └── floralbot_de_template_projeto_ml_dl.py
+│        ├── Documentação do Sistema.pdf
+│
+├── .vscode/
+├── __pycache__/
+│
 ├── app/
-│   ├── auth/                 # Rotas de autenticação
-│   ├── static/
-│   │   ├── css/              # Tailwind
-│   │   ├── js/               # Chatbot.js
-│   │   └── img/              # (opcional)
-│   ├── templates/            # HTML
-│   ├── models.py             # Modelos SQLAlchemy
-│   ├── routes.py             # Rotas principais
-│   ├── chatbot.py            # Comunicação com a IA
-│   ├── utils.py              # (reservado para utilidades futuras)
-│   └── ml_pipeline.py        # (reservado para ML futuro)
+│   ├── auth/
+│   ├── static/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── img/ (se existir)
+│   ├── templates/
+│   ├── models.py
+│   ├── routes.py
+│   ├── chatbot.py
+│   ├── utils.py
+│   └── ml_pipeline.py
 │
-├── migrations/               # Alembic
-├── database/                 # Banco SQLite
-├── seeds/                    # Scripts de carga futuras
-├── tests/                    # Estrutura para testes futuros
+├── database/
 │
-├── run.py                    # Início da aplicação
+├── migrations/
+│
+├── seeds/
+│
+├── tests/
+│
+├── run.py
+├── config.py
+├── config_gemini.py
+├── create_db.py
+│
 ├── requirements.txt
-├── README.md
-└── tailwind.config.js
+├── package.json
+├── package-lock.json
+├── tailwind.config.js
+├── .gitignore
+├── .gitattributes
+└── README.md
+
 ```
 
 ---
