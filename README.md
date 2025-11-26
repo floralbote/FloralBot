@@ -76,7 +76,6 @@ floralbot_ai/
 ├── run.py                    # Início da aplicação
 ├── requirements.txt
 ├── README.md
-├── .env
 └── tailwind.config.js
 ```
 
