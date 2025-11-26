@@ -104,6 +104,74 @@ floralbot_ai/
 
 ---
 
+## 🧠 Inteligência Artificial e Métricas de Desempenho
+
+O FloralBot AI conta com um módulo de Machine Learning e Deep Learning capaz de analisar relatos emocionais e sugerir essências florais baseadas em padrões linguísticos. Toda a documentação técnica das análises encontra-se em:
+
+ ```
+
+Documentação/ML_DL-Métricas/
+
+```
+
+## 🎯 Objetivo da Análise de IA
+
+Desenvolver modelos capazes de classificar automaticamente um relato do usuário em uma das 10 essências florais utilizadas pelo sistema.
+
+## 📊 Dataset Utilizado
+
+Dataset sintético com 1.000 registros.
+
+Campos:
+
+relato_usuario — texto livre.
+
+essencia_sugerida — rótulo da essência floral.
+
+Dados balanceados entre as classes.
+
+## 🧪 Metodologia Aplicada
+1) Baseline — Multinomial Naive Bayes
+
+Vetorização: TF-IDF.
+
+Rápido, leve e eficiente.
+
+2) Deep Learning — Rede Neural (Keras/TensorFlow)
+
+Duas camadas densas (64 e 32 neurônios).
+
+Dropout para regularização.
+
+Saída Softmax com 10 classes.
+
+## 🏆 Resultados Obtidos
+
+Ambos os modelos apresentaram desempenho excelente, com acurácia superior a 90%.
+
+Naive Bayes: ~90%
+
+Deep Learning: ~90%
+
+F1-Score elevado nas classes principais.
+
+Matrizes de confusão e gráficos de treinamento disponíveis na documentação.
+
+Conclusão: Para o tamanho atual do dataset, modelos clássicos e redes neurais tiveram desempenho semelhante, validando a viabilidade técnica do sistema.
+
+## 📚 Documentos Disponíveis
+
+Na pasta ML_DL-Métricas você encontrará:
+
+Notebook completo (.ipynb)
+
+Pipeline em Python (.py)
+
+Relatório Final (PDF)
+
+
+---
+
 ## ⚙️ Como Rodar o Projeto Localmente
 
 Certifique-se de ter o **Python 3.12** instalado.
