@@ -62,6 +62,7 @@ floralbot_ai/
 │       ├── Relatorio Final ML_DL - FloralBot.pdf
 │       └── floralbot_de_template_projeto_ml_dl.py
 │   ├── Documentação do Sistema FloralBot.pdf
+│   ├── Estrutura de Prompt - FloralBot.pdf
 │   └── dataset_floralbot.csv
 │
 ├── .vscode/
