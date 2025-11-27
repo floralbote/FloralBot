@@ -57,11 +57,12 @@
 floralbot_ai/
 │
 ├── Documentação/
-│   └── ML_DL-Métricas/
+│   ├── ML_DL-Métricas/
 │       ├── FLORALBOT_de_Template_Projeto_ML_DL.ipynb
 │       ├── Relatorio Final ML_DL - FloralBot.pdf
 │       └── floralbot_de_template_projeto_ml_dl.py
-│        ├── Documentação do Sistema.pdf
+│   ├── Documentação do Sistema FloralBot.pdf
+│   └── dataset_floralbot.csv
 │
 ├── .vscode/
 ├── __pycache__/
@@ -70,8 +71,7 @@ floralbot_ai/
 │   ├── auth/
 │   ├── static/
 │   │   ├── css/
-│   │   ├── js/
-│   │   └── img/ (se existir)
+│   │   └── js/
 │   ├── templates/
 │   ├── models.py
 │   ├── routes.py
@@ -229,7 +229,8 @@ tests/
 ## ⭐ Autoria
 
 * **Apoio de Inteligência Artificial:** Desenvolvido com o suporte essencial do **ChatGPT**.
-* **Mentoria e Orientação:** Conduzido sob a mentoria especializada da **Dra. Fernanda Oliveira**.
+* **Mentoria e Orientação:** Conduzido sob a mentoria especializada da **Prof. Dra. Fernanda Oliveira**.
+* **Parceria Comercial:** Agradecimento especial para a **Dra. Luciana Chammas** Fundadora e Diretora da **HEALING**.
 * **Customização Final:** Detalhadamente customizado e finalizado pelos **criadores do FloralBot AI:**
 
 * Fabia Santos
