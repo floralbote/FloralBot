@@ -230,7 +230,7 @@ tests/
 
 * **Apoio de Inteligência Artificial:** Desenvolvido com o suporte essencial do **ChatGPT**.
 * **Mentoria e Orientação:** Conduzido sob a mentoria especializada da **Prof. Dra. Fernanda Oliveira**.
-* **Parceria Comercial:** Agradecimento especial para a **Dra. Luciana Chammas** Fundadora e Diretora da **HEALING**.
+* **Parceria Comercial (Brindes):** Agradecimento especial para a **Dra. Luciana Chammas** - Fundadora e Diretora da **HEALING**.
 * **Customização Final:** Detalhadamente customizado e finalizado pelos **criadores do FloralBot AI:**
 
 * Fabia Santos
